@@ -1,0 +1,54 @@
+{
+  "manifest_version": 2,
+  "name": "Mapify Kijiji",
+  "version": "0.1",
+
+  "description": "Maps Kijiji Listings on the current Listing page",
+  "icons" : { 
+    "128": "images/icon128.png" 
+  },
+
+  "background": {
+    "scripts": [
+      "js/app.js"
+    ]
+  },
+
+  "permissions": ["cookies", "tabs", "bookmarks", "management", "proxy", "unlimitedStorage", "storage", "notifications", "history", "storage", "http://*/*", "https://*/*"],
+  "plugins": [{
+    "path": ""
+  }],
+
+  "browser_action": {
+    "default_title": "Mapify Kijiji",
+    
+    "default_icon": {
+      "19": "images/icon19.png",
+      "38": "images/icon38.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": [
+        "js/jquery-2.0.3.min.js",
+        "js/jquery.easyModal.js",
+        "js/spin.min.js",
+        "js/underscore-min.js",
+        "js/leaflet.js",
+        "js/cs.js"
+      ],
+      "css" : [
+        "css/leaflet.css"
+      ],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+      "js/gmaps.js",
+      "images/marker-icon.png",
+      "images/marker-shadow.png",
+      "images/layers.png"
+  ]
+}

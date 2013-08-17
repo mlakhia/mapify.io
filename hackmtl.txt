@@ -1,0 +1,48 @@
+gandi.net
+ML8077-GANDI
+jackass66
+
+mapify.io
+NE-T069-370
+
+To access a server http://cc.iweb.com/ 
+login : mtlstartuptalent@gmail.com
+password: 12345678
+
+
+
+Mapify.io (formerly Kijiji Maps) 	
+The easiest way to locate location data and phone numbers and turn it into coordinate data. Will be used to view a map of kijiji listings on a listing page in a google maps overlay using gmaps.js	
+Michael Lakhia	
+front-end / back-end dev	
+@michael.lakhia	
+https://github.com/mlakhia/mapify.io
+
+------------------------------------------
+
+if href == kijiji, show button
+
+on button click
+
+save all .adLinkSB href
+
+visit each link
+
+parent of .viewmap-link contains address
+
+reverse geocode each address
+
+we now have a list of latlng coords
+
+show overlay,
+build map
+map the latlng coords
+
+
+---
+
+Attributions:
+
+http://fgnass.github.io/spin.js/
+http://flaviusmatis.github.io/easyModal.js/
+The PasswordBox Team
