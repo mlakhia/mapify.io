@@ -10,8 +10,10 @@
 	*/
 
 	function injectModal(){
-		$('body').prepend('<div id="mapify-popup"><div id="map-canvas" style="width:300px;height:300px;"></div></div>');
+		$('body').prepend('<div id="mapify-popup"><div id="map-canvas" style="width:400px;height:400px;"></div></div>');
 	}
+
+	var spinner;
 
 	function buildModal(){
 		$("#mapify-popup").easyModal({
@@ -23,7 +25,7 @@
 			closeOnEscape: false
 		});
 
-		var spinner = new Spinner().spin();
+		spinner = new Spinner().spin();
 		$("#mapify-popup").append(spinner.el);
 		$("#mapify-popup").trigger('openModal');
 		//spinner.stop();
@@ -125,7 +127,7 @@
 					//google.maps.event.trigger(map, "resize");
 
 					initialize_map();
-
+					spinner.stop();
 				}
 
 				//console.log(tempCoord);
@@ -199,7 +201,7 @@
 
 		L.Icon.Default.imagePath = chrome.extension.getURL("images");
 
-		var map = L.map('map-canvas').setView( [ listingCoords[0][0], listingCoords[0][1] ], 7);
+		var map = L.map('map-canvas').setView( [ listingCoords[5][0], listingCoords[5][1] ], 10);
 
 
 
