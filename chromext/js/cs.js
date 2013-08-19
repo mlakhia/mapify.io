@@ -212,8 +212,9 @@
 
 		listingCoords.forEach(function(element, index, array){
 			var marker = L.marker( 
-				[ element[0], element[1] ] 
-				).addTo(map);
+				[ element[0], element[1] ])
+			.bindPopup(element[2] + '<p><a href="'+listingLinks[index]+'">View</a>')
+			.addTo(map);
 		});
 
 	}
