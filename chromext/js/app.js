@@ -1,24 +1,21 @@
 (function(){
-	/*
-	hj = {
-		data :{
-			name : 'toto',
-			hash : 'hackmtl'
-		}
-	};
-	// send (hj.data)
+
+	/* 
+		Need to implement:
+
+		- multi-click disable fix
+		- only show icon on valid kijiji listing pages
+		- omnibox "km" kijiji quick search and map load
 	*/
 
-	//var alreadyClicked = false;
-
-	//Add Default Listener provided by chrome.api.*
+	// Add Default Listener provided by chrome.api.*
+	// This listens for the Kijiji Mapify icon click
 	chrome.browserAction.onClicked.addListener(function (tab) {
-
-		//console.log(tab);
 		
 		//Check for previous click
 	    //if (!alreadyClicked) {
 
+	    	// when button click, start process in content script
 			chrome.tabs.sendMessage(tab.id, "startInitProcess", function(reponse){
 
 				if(reponse.type == "success") {
@@ -32,11 +29,8 @@
 				}
 
 			});
-
-			// external file in extension folder
-			// chrome.extension.getURL("topbar.html")
 	        
-	        alreadyClicked = true;
+	        //alreadyClicked = true;
 	        return;
 //	    }
 

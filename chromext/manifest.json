@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Mapify Kijiji",
-  "version": "0.1",
+  "version": "0.2",
 
-  "description": "Maps Kijiji Listings on the current Listing page",
+  "description": "Creates an overlay map using data points from Kijiji listings. Must be on a Kijiji Listing page for the Mapify Kijiji icon to appear.",
   "icons" : { 
     "128": "images/icon128.png" 
   },
@@ -14,7 +14,7 @@
     ]
   },
 
-  "permissions": ["cookies", "tabs", "bookmarks", "management", "proxy", "unlimitedStorage", "storage", "notifications", "history", "storage", "http://*/*", "https://*/*"],
+  "permissions": ["geolocation", "tabs", "notifications", "http://*.kijiji.ca/*"],
   "plugins": [{
     "path": ""
   }],
@@ -34,7 +34,6 @@
         "js/jquery-2.0.3.min.js",
         "js/jquery.easyModal.js",
         "js/spin.min.js",
-        "js/underscore-min.js",
         "js/leaflet.js",
         "js/cs.js"
       ],
