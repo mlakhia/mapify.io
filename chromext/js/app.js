@@ -6,6 +6,9 @@
 		- multi-click disable fix
 		- only show icon on valid kijiji listing pages
 		- omnibox "km" kijiji quick search and map load
+		- notifications
+		- geolocation
+		-- http://leafletjs.com/examples/mobile.html
 	*/
 
 	// Add Default Listener provided by chrome.api.*

@@ -22,3 +22,8 @@ This extension's icon ![Alt text](/chromext/images/icon38.png "Kijiji Mapify") w
 * easyModal - 	http://flaviusmatis.github.io/easyModal.js/
 
 * Leaflet JS - 	https://github.com/Leaflet/Leaflet http://leafletjs.com/
+
+
+### Notes
+
+Initially [gmaps.js](http://hpneo.github.io/gmaps/) was used, but due to Google Maps and their API the map wouldn't display. After 3 hours of struggling to get GMaps to work in an extension and sequentially in a popup, I turned to [Leaflet](http://leafletjs.com/) and in < 10 minutes everything was working.
