@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Mapify.io by mlakhia</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Mapify.io</h1>
+        <p>Creates an overlay map using data points from existing websites. (currently only Kijiji)</p>
+
+        <p class="view"><a href="https://github.com/mlakhia/mapify.io">View the Project on GitHub <small>mlakhia/mapify.io</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mlakhia/mapify.io/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mlakhia/mapify.io/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mlakhia/mapify.io">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="mapifyio" class="anchor" href="#mapifyio"><span class="octicon octicon-link"></span></a>Mapify.io</h1>
+
+<p>Mapify.io is a <strong>Chrome Extension</strong> project that aims to overlay a map with useful information on sites such as <strong>Kijiji</strong> which have poor listing navigation implementations.</p>
+
+<h2>
+<a name="using-kijiji-mapify" class="anchor" href="#using-kijiji-mapify"><span class="octicon octicon-link"></span></a>Using Kijiji Mapify</h2>
+
+<p>The icon  <img src="https://raw.github.com/mlakhia/mapify.io/master/chromext/images/icon38.png" alt="Kijiji Mapify - Mapify.io" title="Kijiji Mapify">  will appear on <strong>Kijiji listing pages</strong>. When clicked, a map will be presented with all listings on the current page.</p>
+
+<h3>
+<a name="misc-notes" class="anchor" href="#misc-notes"><span class="octicon octicon-link"></span></a>Misc Notes</h3>
+
+<p>Initially <a href="http://hpneo.github.io/gmaps/">gmaps.js</a> was used, but due to Google Maps and their API the map wouldn't display. After 3 hours of struggling to get GMaps to work in an extension and sequentially in a popup, I turned to <a href="http://leafletjs.com/">Leaflet</a> and in &lt; 10 minutes everything was working.</p>
+
+<p>Craigslist recently (2012/10) implemented <a href="http://thenextweb.com/insider/2012/10/04/craigslist-rolls-out-new-map-view-feature-for-apartment-searches/">map view</a>. Craigslist also utilizes <a href="http://leafletjs.com/">Leaflet</a>.</p>
+
+<h2>
+<a name="attributions" class="anchor" href="#attributions"><span class="octicon octicon-link"></span></a>Attributions:</h2>
+
+<ul>
+<li><p>The <a href="https://www.passwordbox.com/about">PasswordBox Team</a></p></li>
+<li><p>Spin.JS -     <a href="http://fgnass.github.io/spin.js/">http://fgnass.github.io/spin.js/</a></p></li>
+<li><p>easyModal -   <a href="http://flaviusmatis.github.io/easyModal.js/">http://flaviusmatis.github.io/easyModal.js/</a></p></li>
+<li><p>Leaflet JS -  <a href="https://github.com/Leaflet/Leaflet">https://github.com/Leaflet/Leaflet</a> <a href="http://leafletjs.com/">http://leafletjs.com/</a></p></li>
+</ul><h2>
+<a name="details" class="anchor" href="#details"><span class="octicon octicon-link"></span></a>Details</h2>
+
+<p>This Chrome Extension was created during <a href="http://hackmtl.eventbrite.com/">#hackmtl</a> on August 17, 2013 on top of the Olympic Stadium in Montreal, Canada. It won the "Best Google Chrome Web Extension". </p>
+
+<p>I do plan on improving it's functionality over time, however it's currently not a priority.</p>
+
+<p>If you'd like to contribute, please do so and submit a pull request. If contributing is new to you, you can read more on <a href="https://help.github.com/articles/fork-a-repo">Fork A Repo - GitHub Help</a>.</p>
+
+<p>If you have a suggestion or feature you would like to see implemented, visit <a href="http://mapify.io/suggest/">http://mapify.io/suggest/</a> (coming soon - 2013/08/25) or <a href="https://github.com/mlakhia/mapify.io/issues">submit an issue</a>.</p>
+
+<h2>
+<a name="news-articles" class="anchor" href="#news-articles"><span class="octicon octicon-link"></span></a>News Articles:</h2>
+
+<ul>
+<li><a href="http://blog.marmalad.es/2013/08/19/hackmtl-2013-in-the-olympic-tower/">Marmalad.es - HackMTL 2013 in the Olympic Tower</a></li>
+<li><a href="http://mtlstartuptalent.com/post/58602114770/hackmtl-showcases-the-best-talent-in-montreal">MTLStartupTalent - #hackmtl showcases the best talent in Montreal</a></li>
+<li><a href="http://montrealtechwatch.com/2013/08/19/hackmtl-140-developers-36-projects-24-hours-hackathon-at-the-olympic-stadium/">Montreal Tech Watch - #hackmtl : 140 developers, 36 projects, 24 hours hackathon at the olympic stadium</a></li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mlakhia">mlakhia</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-43326625-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
