@@ -42,4 +42,5 @@ If you have a suggestion or feature you would like to see implemented, visit htt
 * [Marmalad.es - HackMTL 2013 in the Olympic Tower](http://blog.marmalad.es/2013/08/19/hackmtl-2013-in-the-olympic-tower/)
 * [MTLStartupTalent - #hackmtl showcases the best talent in Montreal](http://mtlstartuptalent.com/post/58602114770/hackmtl-showcases-the-best-talent-in-montreal)
 * [Montreal Tech Watch - #hackmtl : 140 developers, 36 projects, 24 hours hackathon at the olympic stadium](http://montrealtechwatch.com/2013/08/19/hackmtl-140-developers-36-projects-24-hours-hackathon-at-the-olympic-stadium/)
+* [iWeb at HackMTL 2013 – Javascript edition](http://blog.iweb.com/en/2013/08/hackmtl-2013-javascript-edition/12478.html)
 
