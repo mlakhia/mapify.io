@@ -10,15 +10,17 @@
     "128": "images/icon128.png" 
   },
 
+  "omnibox": { "keyword" : "mk" },
+
   "background": {
     "scripts": [
-      "js/app.js"
+      "js/background.js"
     ]
   },
 
-  "permissions": ["http://*.kijiji.ca/", "geolocation", "activeTab", "notifications"],
+  "permissions": ["http://*.kijiji.ca/", "geolocation", "tabs", "notifications"],
 
-  "browser_action": {
+  "page_action": {
     "default_title": "Mapify Kijiji",
 
     "default_icon": {
@@ -28,6 +30,8 @@
   },
   "content_scripts": [
     {
+      "run_at": "document_end",
+      "all_frames": true,
       "matches": ["http://*.kijiji.ca/*"],
       "js": [
         "js/jquery-2.0.3.min.js",
@@ -38,12 +42,11 @@
       ],
       "css" : [
         "css/leaflet.css"
-      ],
-      "run_at": "document_end",
-      "all_frames": true
+      ]
     }
   ],
   "web_accessible_resources": [
+      "js/jquery-2.0.3.min.map",
       "js/gmaps.js",
       "images/marker-icon.png",
       "images/marker-shadow.png",

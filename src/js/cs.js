@@ -150,8 +150,10 @@
 	window.onload = function(){
 		chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
 			//alert("test")
-			//console.log(message, sender, sendResponse);
-			//console.log(message);			
+			//console.log(message);
+			//console.log(sender);
+			//console.log(sender.tab.id);	
+			//console.log(sendResponse);
 
 			if(message == "startInitProcess"){
 				console.log("startInitProcess");
@@ -167,7 +169,10 @@
 				} else {
 					sendResponse({type:"fail"});
 				}
+			}else{
+				sendResponse({type:"fail"});
 			}
+			
 		});		
 	}
 
