@@ -3,11 +3,13 @@
 	// disables loading in iframes (only run if top level window/tab)
 	if(top !== self) return false;
 
-	/**
-	 * Modal
-	 *
-	*/
+	// ** CONSOLE LOGGING **
+	var DEBUG = true;
+	function csLog(message){
+		if(DEBUG) console.log("MapifyKijiji:", message);
+	}
 
+	// ** Modal + Loading Spiner **
 	var spinner;
 
 	function injectModal(){
@@ -31,10 +33,66 @@
 		//$("#mapify-popup").trigger('closeModal');	
 	}
 
-	/**
-	 * Listing
-	 *
-	*/
+	// ** PAGINATION **
+	var currentPage = 1;
+
+	function initPagination(){
+		currentPage = $('.paginationBottomBg .currentPage').text().trim();
+		var nextPageUrl = getNextPageUrl();
+		processNextPage(nextPageUrl);
+	}
+
+	function paginationNextUpdate(){
+		$('.paginationBottomBg .currentPage').addClass('notCurrentPage').removeClass('currentPage')
+			.next().addClass('currentPage').removeClass('notCurrentPage');
+	}
+
+	function getNextPageUrl(){
+		return $('.paginationBottomBg .currentPage').next().find('a').attr('href');
+	}
+
+	function processNextPage(nextPageUrl){
+		var $tempHtml = $('<div>');
+			$tempHtml.load(nextPageUrl, function(response, status, xhr) {
+				csLog("Pagination: Processing: " + nextPageUrl);
+
+				if (status == "error") {
+					var msg = "Pagination: Processing: Sorry but there was an error: ";
+					console.log(msg + xhr.status + " " + xhr.statusText);
+				}else{
+					csLog("Pagination: Processing: LOADED");
+
+					// visible line break
+					//$('#SNB_Results tr:last').after('<tr><td><div style="height:5px;width:100%;background:red;"><hr/></div></td></tr>');
+
+					var listingRows = [];
+
+					$('tr.resultsTableSB', this).each(function(index) {
+						csLog("Found " +  index + ": " + $(this).find('.adLinkSB').text());
+
+						//var rowHtml = $(this)[0]];
+						//$(this).parent().html()
+						csLog("Appending: " + $(this)[0]);
+
+						$('#SNB_Results tbody:last')[0].appendChild($(this)[0]);
+
+						//listingRows.push($(this)[0]);
+					});
+
+					runCleanup();
+					paginationNextUpdate();
+
+					//csLog(listingRows);
+					
+					//listingRows.forEach(function(element, index, array){
+						//csLog("Appending: " + element);
+						//$('#SNB_Results tr:last').append(element);
+					//});
+				}
+			});
+	}
+
+	// ** LISTINGS **
 
 	var listingLinks = [];
 	var listingAddresses = [];
@@ -58,7 +116,6 @@
 		listingLinks.forEach(function(element, index, array){
 
 			var $tempHtml = $('<div>');
-
 			$tempHtml.load(element + ' #attributeTable', function(response, status, xhr) {
 				
 				//console.log("Scraping",index);
@@ -147,10 +204,17 @@
 		
 	}
 
-	/**
-	 * Map
-	 *
-	*/
+	// ** PAGE CLEANUP **
+	function runCleanup(){
+		// cleanup ads
+		$('#topAdSense, #bottomAdSense, .GoogleActiveViewClass, .sbTopadWrapper').remove();
+		$('#lmDIYads, #inlineBanner').parent().remove();
+
+		// change paid ads background color
+		$('tr[id*=resultFeat]').css('background','#ED4337');
+	}
+
+	// ** MAP **
 
 	var marker;
 	var map;
@@ -174,41 +238,51 @@
 
 	}
 
-	/**
-	 * Init
-	 *
-	*/
+	// ** INIT **
 
 	var kijiji_search_table_id = $('#SNB_Results');
 	//var kijiji_attribute_table_id = $('#attributeTable');
 
-	window.onload = function(){
-		chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
-			//alert("test")
-			//console.log(message);
-			//console.log(sender);
-			//console.log(sender.tab.id);	
-			//console.log(sendResponse);
+	runCleanup();
 
-			if(message == "startInitProcess"){
-				console.log("startInitProcess");
+	window.onload = function(){
+
+		setTimeout(function (){
+             initPagination();
+         }, 3000);
+
+		chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
+			csLog("Received message:" + message);
+			//csLog(sender);
+			//csLog(sender.tab.id);
+
+			if(message == "iconClicked"){
+				csLog("Known Message: iconClicked");
 
 				if(kijiji_search_table_id.length > 0){
-
+					csLog("Listing Table Found");
 					sendResponse({type:"success"});
 
+					// Go
 					injectModal();
 					buildModal();
 					startPageInspection();					
 					
 				} else {
+					csLog("Listing Table NOT Found");
 					sendResponse({type:"fail"});
 				}
 			}else{
+				csLog("Unknown Message: " + message);
 				sendResponse({type:"fail"});
 			}
 			
 		});		
 	}
 
+	csLog("(end of cs)");
 })()
+
+jQuery.fn.outer = function() {
+    return $($('<div></div>').html(this.clone())).html();
+}
