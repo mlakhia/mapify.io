@@ -1,11 +1,13 @@
 {
   "manifest_version": 2,
   "name": "Mapify Kijiji",
-  "version": "0.2",
+  "version": "0.3",
 
-  "description": "Creates a map from Kijiji listings. Must be on a Kijiji Listing page for the Mapify Kijiji icon to work.",
+  "description": "Creates a map from Kijiji listings. Must be on a Kijiji Listing page for Mapify Kijiji to automatically work. If you see a Grey icon, you are on a valid Kijiji page, but not a Listing page.",
   "icons" : { 
     "16": "images/icon16.png",
+    "19": "images/icon19.png",
+    "38": "images/icon38.png",
     "48": "images/icon48.png",
     "128": "images/icon128.png" 
   },
