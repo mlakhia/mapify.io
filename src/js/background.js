@@ -1,19 +1,17 @@
 (function(){
 
 	/* 
-		Need to implement:
+		TODO:
 
 		- multi-click disable fix
-		- only show icon on valid kijiji listing pages
-		- omnibox "km" kijiji quick search and map load
-		- notifications
-		- geolocation
-		-- http://leafletjs.com/examples/mobile.html
+		- infinity-scroll
+		- in-page map
+		-- w/ geolocation
+		--- http://leafletjs.com/examples/mobile.html
 	*/
 
-	// Add Default Listener provided by chrome.api.*
-	// This listens for the Kijiji Mapify icon click
-	/*
+	/* // **BROWSER ACTION**
+	// Listens for the Kijiji Mapify icon click - browser
 	chrome.browserAction.onClicked.addListener(browserActionCallback);
 	function browserActionCallback(tab) {
     	// when button click, start process in content script
@@ -29,7 +27,9 @@
 	}
 	*/
 
-	// Called when page action icon in omnibar is clicked
+	// **PAGE ACTION**
+	// Listens for the Kijiji Mapify icon click - page (in omnibar)
+	chrome.pageAction.onClicked.addListener(pageActionCallback);
 	function pageActionCallback(tab) {
     	// when button click, start process in content script
 		chrome.tabs.sendMessage(tab.id, "startInitProcess", function(reponse){
@@ -42,10 +42,6 @@
 		});        
         return;
 	}
-
-	// Listen for page action icon click
-	chrome.pageAction.onClicked.addListener(pageActionCallback);
-
 
 
 /*
@@ -107,6 +103,5 @@
 	    });
 	});
 
-	console.log("Mapify Kijiji Alive!");
-
+	console.log("Mapify Kijiji is Alive!");
 })()

@@ -3,17 +3,16 @@
 	// disables loading in iframes (only run if top level window/tab)
 	if(top !== self) return false;
 
-	/*
-		$('head').append("<script type='text/javascript' src='https://maps.google.com/maps/api/js?sensor=true'>");
-		console.log(chrome.extension.getURL("js/gmaps.js"));
-		$('head').append("<script type='text/javascript' src='"+chrome.extension.getURL("js/gmaps.js")+"'>");
+	/**
+	 * Modal
+	 *
 	*/
+
+	var spinner;
 
 	function injectModal(){
 		$('body').prepend('<div id="mapify-popup"><div id="map-canvas" style="width:400px;height:400px;"></div></div>');
 	}
-
-	var spinner;
 
 	function buildModal(){
 		$("#mapify-popup").easyModal({
@@ -32,6 +31,10 @@
 		//$("#mapify-popup").trigger('closeModal');	
 	}
 
+	/**
+	 * Listing
+	 *
+	*/
 
 	var listingLinks = [];
 	var listingAddresses = [];
@@ -144,6 +147,38 @@
 		
 	}
 
+	/**
+	 * Map
+	 *
+	*/
+
+	var marker;
+	var map;
+
+	function initialize_map() {
+
+		L.Icon.Default.imagePath = chrome.extension.getURL("images");
+
+		var map = L.map('map-canvas').setView( [ listingCoords[5][0], listingCoords[5][1] ], 10);
+
+		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+			maxZoom: 12,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+		}).addTo(map);
+
+		listingCoords.forEach(function(element, index, array){
+			var marker = L.marker( [ element[0], element[1] ] )
+							.bindPopup(element[2] + '<p><a href="'+listingLinks[index]+'">View Listing</a>')
+							.addTo(map);
+		});
+
+	}
+
+	/**
+	 * Init
+	 *
+	*/
+
 	var kijiji_search_table_id = $('#SNB_Results');
 	//var kijiji_attribute_table_id = $('#attributeTable');
 
@@ -174,28 +209,6 @@
 			}
 			
 		});		
-	}
-
-	var marker;
-	var map;
-
-	function initialize_map() {
-
-		L.Icon.Default.imagePath = chrome.extension.getURL("images");
-
-		var map = L.map('map-canvas').setView( [ listingCoords[5][0], listingCoords[5][1] ], 10);
-
-		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
-			maxZoom: 12,
-			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
-		}).addTo(map);
-
-		listingCoords.forEach(function(element, index, array){
-			var marker = L.marker( [ element[0], element[1] ] )
-							.bindPopup(element[2] + '<p><a href="'+listingLinks[index]+'">View Listing</a>')
-							.addTo(map);
-		});
-
 	}
 
 })()
