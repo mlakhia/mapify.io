@@ -10,7 +10,7 @@
 	}
 
 	// ** Modal + Loading Spiner **
-	var spinner;
+	/*var spinner;
 
 	function injectModal(){
 		$('body').prepend('<div id="mapify-popup"><div id="map-canvas" style="width:400px;height:400px;"></div></div>');
@@ -31,7 +31,7 @@
 		$("#mapify-popup").trigger('openModal');
 		//spinner.stop();
 		//$("#mapify-popup").trigger('closeModal');	
-	}
+	}*/
 
 	// ** PAGINATION **
 	var currentPage;
@@ -144,13 +144,14 @@
 	var listingLinks = [];
 	var listingAddresses = [];
 	var listingCoords = [];
+	var newListingLinks = []; // used for infinite-scroll loaded listings
 
 	function startPageInspection(){
 
 		$('a.adLinkSB').each(function(){
 			listingLinks.push($(this).attr('href'));
 		});
-		//console.log(listingLinks);
+		console.log(listingLinks);
 
 		// start processing
 		processLinks();
@@ -165,7 +166,7 @@
 			var $tempHtml = $('<div>');
 			$tempHtml.load(element + ' #attributeTable', function(response, status, xhr) {
 				
-				//console.log("Scrapping",index);
+				console.log("Scrapping",index);
 
 				if (status == "error") {
 					var msg = "Sorry but there was an error: ";
@@ -196,12 +197,14 @@
 	}
 
 	function processAddresses(){
-		//console.log(listingAddresses);
+		console.log(listingAddresses);
 
 		var processedAddressCount = 0;
 		for(var i=0; i<listingAddresses.length; i++){
 
-			//console.log("Geocoding",i);
+			processedAddressCount++;
+
+			console.log("Geocoding",i);
 
 			//ex: http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true
 
@@ -214,9 +217,7 @@
 			})
 			.done(function( data ) {
 
-				processedAddressCount++;
-
-				//console.log(processedAddressCount, listingAddresses.length);
+				console.log(processedAddressCount, listingAddresses.length);
 
 				if(!data.results[0]) return;
 
@@ -224,16 +225,13 @@
 								data.results[0].geometry.location.lng,
 								data.results[0].formatted_address]
 
-				listingCoords.push(tempCoord);				
+				listingCoords.push(tempCoord);
+				console.log(tempCoord);
 
 				if(processedAddressCount == listingAddresses.length){
-					//console.log("geocoords length",listingAddresses.length);
-
+					console.log("geocoords length",listingAddresses.length);
 					initialize_map();
-					spinner.stop();
 				}
-
-				//console.log(tempCoord);
 
 				//console.log(data.results[0].formatted_address);
 				//console.log("lat:",data.results[0].geometry.location.lat);
@@ -248,7 +246,8 @@
 			});
 
 		}
-		
+
+
 	}
 
 	// ** PAGE CLEANUP **
@@ -264,13 +263,27 @@
 	// ** MAP **
 	var marker;
 	var map;
-	function initialize_map() {
+	var lat = 0;
+	var lng = 0;
 
+	function injectMap(){
+		$('tr.resultsTableSB:first').before('<tr><td colspan="100%"><div id="map-canvas" style="width:'+$('#SNB_Results').width()+'px;height:400px;"></div></td></tr>');
+	}
+
+	function initialize_map() {
+		csLog("initialize_map");
 		L.Icon.Default.imagePath = chrome.extension.getURL("images");
 
-		var map = L.map('map-canvas').setView( [ listingCoords[5][0], listingCoords[5][1] ], 10);
 
-		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+
+		if(map)
+			map.remove();
+
+		csLog("lat:"+lat);
+		csLog("lng:"+lng);
+		map = L.map('map-canvas').setView([lat, lng], 10);
+
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			maxZoom: 12,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
 		}).addTo(map);
@@ -306,10 +319,41 @@
     });
     //#sbResultsListing
 
+    // Get Geolocation
+	if (navigator.geolocation) {
+		csLog('Geolocation is supported!');
+		navigator.geolocation.getCurrentPosition(
+			// success
+			function(position) {
+				lat = position.coords.latitude;
+				lng = position.coords.longitude;
+
+				csLog("position.coords:"+position.coords);
+				csLog("position.coords.latitude:"+position.coords.latitude);
+				csLog("position.coords.longitude:"+position.coords.longitude);
+				csLog("position.coords.accuracy(meters):"+position.coords.accuracy); // in meters
+			},
+			// error
+			function(positionError) {
+				console.log(positionError);
+				csLog("Geolocation: Error occurred. Error code: " + positionError.code);
+				// error.code can be:
+				//   0: unknown error
+				//   1: permission denied
+				//   2: position unavailable (error response from locaton provider)
+				//   3: timed out
+			}
+		);
+	}else{
+		csLog('Geolocation is not supported for this Browser/OS version yet.');
+	}
+
 	window.onload = function(){
 
 		setTimeout(function (){
              initPagination();
+             injectMap();
+             startPageInspection();
          }, 300);
 
 		chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
@@ -324,8 +368,9 @@
 					sendResponse({type:"success"});
 
 					// Go
-					injectModal();
-					buildModal();
+					//injectModal();
+					//buildModal();
+					injectMap();
 					startPageInspection();					
 					
 				} else {
