@@ -34,24 +34,44 @@
 	}
 
 	// ** PAGINATION **
-	var currentPage = 1;
+	var currentPage;
+	var nextPage;
+	var nextPageUrl;
+	var lastPage = false;
 
+	// updates pagination variables, checks for current, next and set last page bool
+	// only run at the beginning, similar code in processNextPage
 	function initPagination(){
 		currentPage = $('.paginationBottomBg .currentPage').text().trim();
-		var nextPageUrl = getNextPageUrl();
-		processNextPage(nextPageUrl);
+		nextPage = $('.paginationBottomBg .currentPage').next().text().trim();
+		nextPageUrl = $(".paginationBottomBg .prevNextLink:contains('Next')").attr('href');
+
+		csLog("initPagination: current page:"+currentPage);
+		csLog("initPagination: next page:"+nextPage);
+		csLog("initPagination: next page url:"+nextPageUrl);
+
+		if(nextPage == "" || nextPageUrl == undefined){
+			lastPage = true;
+			csLog("initPagination: Last Page: true");
+		}else{
+			lastPage = false;
+			csLog("initPagination: Last Page: false");
+		}
 	}
 
-	function paginationNextUpdate(){
-		$('.paginationBottomBg .currentPage').addClass('notCurrentPage').removeClass('currentPage')
-			.next().addClass('currentPage').removeClass('notCurrentPage');
-	}
+	// @Deprecated
+	// Grabs the link after current and verifies text links
+	/*function getNextPageUrl(){
+		var nextLink = $('.paginationBottomBg .currentPage').next().find('a');
+		if(nextLink.hasClass('prevNextLink')){
+			alert("Last Page");
+		}
+		return $('.paginationBottomBg .currentPage').next().attr('href');
+	}*/
 
-	function getNextPageUrl(){
-		return $('.paginationBottomBg .currentPage').next().find('a').attr('href');
-	}
-
-	function processNextPage(nextPageUrl){
+	// ** NEXT PAGE PROCESSING **
+	function processNextPage(){
+		if(nextPageUrl != "" && nextPageUrl != undefined){
 		var $tempHtml = $('<div>');
 			$tempHtml.load(nextPageUrl, function(response, status, xhr) {
 				csLog("Pagination: Processing: " + nextPageUrl);
@@ -65,6 +85,25 @@
 					// visible line break
 					//$('#SNB_Results tr:last').after('<tr><td><div style="height:5px;width:100%;background:red;"><hr/></div></td></tr>');
 
+					// update pagination stuff
+					currentPage = $('.paginationBottomBg .currentPage', this).text().trim();
+					nextPage = $('.paginationBottomBg .currentPage', this).next().text().trim();
+					nextPageUrl = $(".paginationBottomBg .prevNextLink:contains('Next')", this).attr('href');
+
+					csLog("processNextPage: current page:"+currentPage);
+					csLog("processNextPage: next page:"+nextPage);
+					csLog("processNextPage: next page url:"+nextPageUrl);
+
+					if(nextPage == "" || nextPageUrl == undefined){
+						lastPage = true;
+						csLog("processNextPage: Last Page: true");
+					}else{
+						lastPage = false;
+						csLog("processNextPage: Last Page: false");
+					}
+
+					csLog("==== About to Process Page " + currentPage + " ====");
+
 					var listingRows = [];
 
 					$('tr.resultsTableSB', this).each(function(index) {
@@ -72,15 +111,22 @@
 
 						//var rowHtml = $(this)[0]];
 						//$(this).parent().html()
-						csLog("Appending: " + $(this)[0]);
+						//csLog("Appending: ");
+						//console.log($(this)[0]);
 
 						$('#SNB_Results tbody:last')[0].appendChild($(this)[0]);
 
 						//listingRows.push($(this)[0]);
 					});
 
+					csLog("==== Finished Processing Page " + currentPage + " ====");
+
+					// Update Pagination..
+					$('.paginationBottomBg').replaceWith($('.paginationBottomBg', this));
+
 					runCleanup();
-					paginationNextUpdate();
+
+					processAllowed = true;
 
 					//csLog(listingRows);
 					
@@ -90,6 +136,7 @@
 					//});
 				}
 			});
+		}
 	}
 
 	// ** LISTINGS **
@@ -118,7 +165,7 @@
 			var $tempHtml = $('<div>');
 			$tempHtml.load(element + ' #attributeTable', function(response, status, xhr) {
 				
-				//console.log("Scraping",index);
+				//console.log("Scrapping",index);
 
 				if (status == "error") {
 					var msg = "Sorry but there was an error: ";
@@ -215,10 +262,8 @@
 	}
 
 	// ** MAP **
-
 	var marker;
 	var map;
-
 	function initialize_map() {
 
 		L.Icon.Default.imagePath = chrome.extension.getURL("images");
@@ -240,26 +285,41 @@
 
 	// ** INIT **
 
-	var kijiji_search_table_id = $('#SNB_Results');
-	//var kijiji_attribute_table_id = $('#attributeTable');
-
 	runCleanup();
+
+	var processAllowed = true;
+    $(window).scroll(function(){
+        var wintop = $(window).scrollTop(), 
+        	docheight = $(document).height(), 
+        	winheight = $(window).height();
+        var  scrolltrigger = 0.95;
+
+        if  ((wintop/(docheight-winheight)) > scrolltrigger &&
+        		processAllowed == true) {
+        	
+        	if(lastPage == false){
+        		processAllowed = false;
+				processNextPage();
+			}
+        	csLog("scrolling active");
+        }
+    });
+    //#sbResultsListing
 
 	window.onload = function(){
 
 		setTimeout(function (){
              initPagination();
-         }, 3000);
+         }, 300);
 
 		chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
 			csLog("Received message:" + message);
-			//csLog(sender);
-			//csLog(sender.tab.id);
+			//csLog("Received from:" + sender);
 
 			if(message == "iconClicked"){
 				csLog("Known Message: iconClicked");
 
-				if(kijiji_search_table_id.length > 0){
+				if($('#SNB_Results').length > 0){
 					csLog("Listing Table Found");
 					sendResponse({type:"success"});
 
@@ -282,7 +342,3 @@
 
 	csLog("(end of cs)");
 })()
-
-jQuery.fn.outer = function() {
-    return $($('<div></div>').html(this.clone())).html();
-}
