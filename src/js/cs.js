@@ -263,8 +263,8 @@
 	// ** MAP **
 	var marker;
 	var map;
-	var lat = 0;
-	var lng = 0;
+	var lat = 45.5000;
+	var lng = -73.5667;
 
 	function injectMap(){
 		$('tr.resultsTableSB:first').before('<tr><td colspan="100%"><div id="map-canvas" style="width:'+$('#SNB_Results').width()+'px;height:400px;"></div></td></tr>');
