@@ -1,12 +1,24 @@
 Mapify.io
 =========
 
-Mapify.io is a **Chrome Extension** project that aims to overlay a map with useful information on sites such as **Kijiji** which have poor listing navigation implementations.
+Mapify.io is a **Chrome Extension** project which improves **Kijiji** by adding Map Listing support, an automatic Load More feature (Infinite-Scroll), and various other improvements.
+
+## Using Mapify Kijiji
 
 
-## Using Kijiji Mapify
+### PageAction Icon
 
-The extensions icon  ![Alt text](/chromext/images/icon38.png "Kijiji Mapify")  will appear on **Kijiji listing pages**. When clicked, a map will be presented with all listings on the current page.
+When the extension is enabled, these are the use cases:
+
+1. ![MapifyKijiji - Valid Kijiji Listing Page](/src/images/icon38.png "Kijiji Mapify") (active) will appear on **Kijiji Listing Pages**
+2. ![MapifyKijiji - Kijiji Page](/src/images/icon38_grey.png "Kijiji Mapify") (inactive) will appear on **All Kijiji Pages** 
+
+---
+
+1. Mapify's features are automatic. The infinity scroll by default is active and the map load will refresh on every new automatic load.
+2. You are on another Kijiji page and the automatic features are disabled.
+
+
 
 
 ### Misc Notes
