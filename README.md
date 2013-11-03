@@ -1,17 +1,16 @@
 Mapify.io
 =========
 
-Mapify.io is a **Chrome Extension** project which improves **Kijiji** by adding Map Listing support, an automatic Load More feature (Infinite-Scroll), and various other improvements.
+Mapify.io is a **Chrome Extension** project which improves **Kijiji** by adding a Map, Ads/Listing Infinite-Scroll, and other various features.
 
 ## Using Mapify Kijiji
-
 
 ### PageAction Icon
 
 When the extension is enabled, these are the use cases where you will see the Mapify Kijiji icon appear in the omnibox (url bar):
 
-1. ![MapifyKijiji - Valid Kijiji Listing Page](/src/images/icon38.png "Kijiji Mapify") (active) will appear on **Kijiji Listing Pages**
-2. ![MapifyKijiji - Kijiji Page](/src/images/icon38_grey.png "Kijiji Mapify") (inactive) will appear on **All Kijiji Pages** 
+1. ![MapifyKijiji - Valid Kijiji Listing Page](https://raw.github.com/mlakhia/mapify.io/master/src/images/icon38.png "Kijiji Mapify (active)") (active) will appear on **Kijiji Listing Pages**
+2. ![MapifyKijiji - Kijiji Page](https://raw.github.com/mlakhia/mapify.io/master/src/images/icon38_grey.png "Kijiji Mapify (inactive)") (inactive) will appear on **All Kijiji Pages** 
 
 ---
 
@@ -20,8 +19,7 @@ When the extension is enabled, these are the use cases where you will see the Ma
 
 ---
 
-
-### Misc Notes (2013-08-17)
+## Misc Notes (2013-08-17)
 
 Initially [gmaps.js](http://hpneo.github.io/gmaps/) was used, but due to Google Maps and their API the map wouldn't display. After 3 hours of struggling to get GMaps to work in an extension and sequentially in a popup, I turned to [Leaflet](http://leafletjs.com/) and in < 10 minutes everything was working.
 
@@ -41,7 +39,7 @@ Craigslist recently (2012/10) implemented [map view](http://thenextweb.com/insid
 
 * easyModal - 	http://flaviusmatis.github.io/easyModal.js/
 
-## Details
+## Project Details
 
 This Chrome Extension was created during [#hackmtl](http://hackmtl.eventbrite.com/) on August 17, 2013 on top of the Olympic Stadium in Montreal, Canada. It won the "Best Google Chrome Web Extension". 
 
