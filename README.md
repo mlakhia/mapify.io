@@ -3,6 +3,13 @@ Mapify.io
 
 Mapify.io is a **Chrome Extension** project which improves **Kijiji** by adding a Map, Ads/Listing Infinite-Scroll, and other various features.
 
+## Download Mapify Kijiji
+
+You can download the Kijiji Mapify Chrome Extension directly from the Chrome Web Store using this link <a href="http://mapify.io/download">http://mapify.io/download</a>, this one <a href="https://chrome.google.com/webstore/detail/mapify-kijiji/fbnaanoejnafapkejgmjpadlfidlgjkc">https://chrome.google.com/webstore/detail/mapify-kijiji/fbnaanoejnafapkejgmjpadlfidlgjkc</a> or by clicking the button below:
+
+[![Kijiji Mapify available in the chrome web store](https://developers.google.com/chrome/web-store/images/branding/ChromeWebStore_BadgeWBorder_v2_340x96.png "Kijiji Mapify available in the chrome web store")](http://mapify.io/download)
+
+
 ## Using Mapify Kijiji
 
 ### PageAction Icon
