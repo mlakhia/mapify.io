@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <h1>Mapify.io</h1>
-        <p>Creates an overlay map using data points from existing websites. (currently only Kijiji)</p>
+        <p>Improves Kijiji with a Map, Ads/Listing Infinite-Scroll, and other various features.</p>
 
         <p class="view"><a href="https://github.com/mlakhia/mapify.io">View the Project on GitHub <small>mlakhia/mapify.io</small></a></p>
 
@@ -31,20 +31,27 @@
         <h1>
 <a name="mapifyio" class="anchor" href="#mapifyio"><span class="octicon octicon-link"></span></a>Mapify.io</h1>
 
-<p>Mapify.io is a <strong>Chrome Extension</strong> project that aims to overlay a map with useful information on sites such as <strong>Kijiji</strong> which have poor listing navigation implementations.</p>
+<p>Mapify.io is a <strong>Chrome Extension</strong> project which improves <strong>Kijiji</strong> by adding a Map, Ads/Listing Infinite-Scroll, and other various features.</p>
 
 <h2>
-<a name="using-kijiji-mapify" class="anchor" href="#using-kijiji-mapify"><span class="octicon octicon-link"></span></a>Download Kijiji Mapify</h2>
-
-<p>You can download the Kijiji Mapify Chrome Extension directly from the Chrome Web Store using this link <a href="http://mapify.io/download">http://mapify.io/download</a>.</p>
-
-<h2>
-<a name="using-kijiji-mapify" class="anchor" href="#using-kijiji-mapify"><span class="octicon octicon-link"></span></a>Using Kijiji Mapify</h2>
-
-<p>The icon  <img src="https://raw.github.com/mlakhia/mapify.io/master/src/images/icon38.png" alt="Kijiji Mapify - Mapify.io" title="Kijiji Mapify">  will appear on <strong>Kijiji listing pages</strong>. When clicked, a map will be presented with all listings on the current page.</p>
+<a name="using-mapify-kijiji" class="anchor" href="#using-mapify-kijiji"><span class="octicon octicon-link"></span></a>Using Mapify Kijiji</h2>
 
 <h3>
-<a name="misc-notes" class="anchor" href="#misc-notes"><span class="octicon octicon-link"></span></a>Misc Notes</h3>
+<a name="pageaction-icon" class="anchor" href="#pageaction-icon"><span class="octicon octicon-link"></span></a>PageAction Icon</h3>
+
+<p>When the extension is enabled, these are the use cases where you will see the Mapify Kijiji icon appear in the omnibox (url bar):</p>
+
+<ol>
+<li>
+<img src="https://raw.github.com/mlakhia/mapify.io/master/src/images/icon38.png" alt="MapifyKijiji - Valid Kijiji Listing Page" title="Kijiji Mapify (active)"> (active) will appear on <strong>Kijiji Listing Pages</strong>
+</li>
+<li>
+<img src="https://raw.github.com/mlakhia/mapify.io/master/src/images/icon38_grey.png" alt="MapifyKijiji - Kijiji Page" title="Kijiji Mapify (inactive)"> (inactive) will appear on <strong>All Kijiji Pages</strong> </li>
+</ol><hr><ol>
+<li>Mapify's features are automatic. The infinity scroll by default is active and the map load will refresh on every new automatic load.</li>
+<li>You are on another Kijiji page and the automatic features are disabled.</li>
+</ol><hr><h2>
+<a name="misc-notes-2013-08-17" class="anchor" href="#misc-notes-2013-08-17"><span class="octicon octicon-link"></span></a>Misc Notes (2013-08-17)</h2>
 
 <p>Initially <a href="http://hpneo.github.io/gmaps/">gmaps.js</a> was used, but due to Google Maps and their API the map wouldn't display. After 3 hours of struggling to get GMaps to work in an extension and sequentially in a popup, I turned to <a href="http://leafletjs.com/">Leaflet</a> and in &lt; 10 minutes everything was working.</p>
 
@@ -55,19 +62,21 @@
 
 <ul>
 <li><p>The <a href="https://www.passwordbox.com/about">PasswordBox Team</a></p></li>
+<li><p>Leaflet JS -  <a href="https://github.com/Leaflet/Leaflet">https://github.com/Leaflet/Leaflet</a> <a href="http://leafletjs.com/">http://leafletjs.com/</a></p></li>
+</ul><h4>
+<a name="no-longer-in-project" class="anchor" href="#no-longer-in-project"><span class="octicon octicon-link"></span></a>No Longer In Project</h4>
+
+<ul>
 <li><p>Spin.JS -     <a href="http://fgnass.github.io/spin.js/">http://fgnass.github.io/spin.js/</a></p></li>
 <li><p>easyModal -   <a href="http://flaviusmatis.github.io/easyModal.js/">http://flaviusmatis.github.io/easyModal.js/</a></p></li>
-<li><p>Leaflet JS -  <a href="https://github.com/Leaflet/Leaflet">https://github.com/Leaflet/Leaflet</a> <a href="http://leafletjs.com/">http://leafletjs.com/</a></p></li>
 </ul><h2>
-<a name="details" class="anchor" href="#details"><span class="octicon octicon-link"></span></a>Details</h2>
+<a name="project-details" class="anchor" href="#project-details"><span class="octicon octicon-link"></span></a>Project Details</h2>
 
 <p>This Chrome Extension was created during <a href="http://hackmtl.eventbrite.com/">#hackmtl</a> on August 17, 2013 on top of the Olympic Stadium in Montreal, Canada. It won the "Best Google Chrome Web Extension". </p>
 
-<p>I do plan on improving it's functionality over time, however it's currently not a priority.</p>
-
 <p>If you'd like to contribute, please do so and submit a pull request. If contributing is new to you, you can read more on <a href="https://help.github.com/articles/fork-a-repo">Fork A Repo - GitHub Help</a>.</p>
 
-<p>If you have a suggestion or feature you would like to see implemented, visit <a href="http://mapify.io/suggest/">http://mapify.io/suggest/</a> (coming soon - 2013/08/25) or <a href="https://github.com/mlakhia/mapify.io/issues">submit an issue</a>.</p>
+<p>If you have a suggestion or feature you would like to see implemented, visit <a href="http://mapify.io/suggest/">http://mapify.io/suggest/</a> or <a href="https://github.com/mlakhia/mapify.io/issues">submit an issue</a>.</p>
 
 <h2>
 <a name="news-articles" class="anchor" href="#news-articles"><span class="octicon octicon-link"></span></a>News Articles:</h2>
@@ -76,6 +85,7 @@
 <li><a href="http://blog.marmalad.es/2013/08/19/hackmtl-2013-in-the-olympic-tower/">Marmalad.es - HackMTL 2013 in the Olympic Tower</a></li>
 <li><a href="http://mtlstartuptalent.com/post/58602114770/hackmtl-showcases-the-best-talent-in-montreal">MTLStartupTalent - #hackmtl showcases the best talent in Montreal</a></li>
 <li><a href="http://montrealtechwatch.com/2013/08/19/hackmtl-140-developers-36-projects-24-hours-hackathon-at-the-olympic-stadium/">Montreal Tech Watch - #hackmtl : 140 developers, 36 projects, 24 hours hackathon at the olympic stadium</a></li>
+<li><a href="http://blog.iweb.com/en/2013/08/hackmtl-2013-javascript-edition/12478.html">iWeb at HackMTL 2013 – Javascript edition</a></li>
 </ul>
       </section>
       <footer>
