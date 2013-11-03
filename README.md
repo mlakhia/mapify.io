@@ -61,3 +61,26 @@ If you have a suggestion or feature you would like to see implemented, visit htt
 * [Montreal Tech Watch - #hackmtl : 140 developers, 36 projects, 24 hours hackathon at the olympic stadium](http://montrealtechwatch.com/2013/08/19/hackmtl-140-developers-36-projects-24-hours-hackathon-at-the-olympic-stadium/)
 * [iWeb at HackMTL 2013 – Javascript edition](http://blog.iweb.com/en/2013/08/hackmtl-2013-javascript-edition/12478.html)
 
+## Changelog
+
+#### 0.1 (2013-08-17)
+
+* Project submitted for judging
+* When icon clicked on a kijiji listing page presented with: popup and map with listings plotted
+
+#### 0.2 (2013-08-25)
+
+* Cleaned up codebase
+* Polish (icons, readme, github page)
+* Better bg & cs messaging
+
+#### 0.3 (2013-11-??)
+
+* TBD
+
+* Geolocation
+* Infinite-Scroll
+* In-page map
+* Better listings
+* Removes annoying ads (sponsored & adsense)
+
