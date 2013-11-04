@@ -1,6 +1,8 @@
 (function(){
 
 	/* 
+		** BACKGROUND SCRIPT **
+
 		TODO:
 
 		- multi-click disable fix

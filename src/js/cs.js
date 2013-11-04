@@ -1,5 +1,9 @@
 (function(){
 
+	/* 
+		** CONTENT SCRIPT **
+	*/
+
 	// disables loading in iframes (only run if top level window/tab)
 	if(top !== self) return false;
 
@@ -41,21 +45,21 @@
 
 	// updates pagination variables, checks for current, next and set last page bool
 	// only run at the beginning, similar code in processNextPage
-	function initPagination(){
+	function updatePagination(){
 		currentPage = $('.paginationBottomBg .currentPage').text().trim();
 		nextPage = $('.paginationBottomBg .currentPage').next().text().trim();
 		nextPageUrl = $(".paginationBottomBg .prevNextLink:contains('Next')").attr('href');
 
-		csLog("initPagination: current page:"+currentPage);
-		csLog("initPagination: next page:"+nextPage);
-		csLog("initPagination: next page url:"+nextPageUrl);
+		csLog("updatePagination: current page:"+currentPage);
+		csLog("updatePagination: next page:"+nextPage);
+		csLog("updatePagination: next page url:"+nextPageUrl);
 
 		if(nextPage == "" || nextPageUrl == undefined){
 			lastPage = true;
-			csLog("initPagination: Last Page: true");
+			csLog("updatePagination: Last Page: true");
 		}else{
 			lastPage = false;
-			csLog("initPagination: Last Page: false");
+			csLog("updatePagination: Last Page: false");
 		}
 	}
 
@@ -84,7 +88,7 @@
 
 					// visible line break
 					//$('#SNB_Results tr:last').after('<tr><td><div style="height:5px;width:100%;background:red;"><hr/></div></td></tr>');
-
+					/*
 					// update pagination stuff
 					currentPage = $('.paginationBottomBg .currentPage', this).text().trim();
 					nextPage = $('.paginationBottomBg .currentPage', this).next().text().trim();
@@ -101,7 +105,7 @@
 						lastPage = false;
 						csLog("processNextPage: Last Page: false");
 					}
-
+					*/
 					csLog("==== About to Process Page " + currentPage + " ====");
 
 					var listingRows = [];
@@ -123,11 +127,13 @@
 
 					// Update Pagination..
 					$('.paginationBottomBg').replaceWith($('.paginationBottomBg', this));
+					updatePagination();
 
 					runCleanup();
 
-					processAllowed = true;
-
+					setTimeout(function (){
+						processAllowed = true;
+					}, 300);
 					//csLog(listingRows);
 					
 					//listingRows.forEach(function(element, index, array){
@@ -351,7 +357,7 @@
 	window.onload = function(){
 
 		setTimeout(function (){
-             initPagination();
+             updatePagination();
              injectMap();
              startPageInspection();
          }, 300);

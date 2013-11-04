@@ -12,6 +12,13 @@ You can download the Kijiji Mapify Chrome Extension directly from the Chrome Web
 
 ## Using Mapify Kijiji
 
+### Omnibox Search - *mk*
+
+You can easily search **Kijiji** by using the **M**apify**Kijiji** keyword **mk** proceeded by a space.
+
+![MapifyKijiji - omnibox keyword: mk](https://raw.github.com/mlakhia/mapify.io/master/omnibox_mk_example1.png "MapifyKijiji - omnibox keyword: mk")
+
+
 ### PageAction Icon
 
 When the extension is enabled, these are the use cases where you will see the Mapify Kijiji icon appear in the omnibox (url bar):
