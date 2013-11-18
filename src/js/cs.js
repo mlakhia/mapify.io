@@ -227,8 +227,6 @@
 		var processedAddressCount = 0;
 		for(var i=0; i<listingLinksAddresses.length; i++){
 
-			
-
 			console.log("Geocoding",i);
 
 			//ex: http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true
@@ -247,6 +245,7 @@
 			.done(function( data ) {
 
 				console.log(processedAddressCount, listingLinksAddresses.length);
+				console.log(data);
 
 				if(!data.results[0]) return;
 
