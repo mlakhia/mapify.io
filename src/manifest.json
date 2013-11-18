@@ -1,9 +1,11 @@
 {
   "manifest_version": 2,
   "name": "Mapify Kijiji",
+  "short_name": "Mapify",
   "version": "0.3",
 
-  "description": "Creates a map from Kijiji listings. Must be on a Kijiji Listing page for Mapify Kijiji to automatically work. If you see a Grey icon, you are on a valid Kijiji page, but not a Listing page.",
+  "description": "Improves Kijiji with a Map, Ads/Listings Infinite-Scroll, and other various features. Color icon = Enabled. Grey icon = Disabled.",
+
   "icons" : { 
     "16": "images/icon16.png",
     "19": "images/icon19.png",
