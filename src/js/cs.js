@@ -110,6 +110,10 @@
 						csLog("processNextPage: Last Page: false");
 					}
 					*/
+
+					//moveMap();
+					$('#map-canvas-row').appendTo("#SNB_Results tbody:last");
+
 					csLog("==== About to Process Page " + currentPage + " ====");
 
 					var listingRows = [];
@@ -164,26 +168,27 @@
 	 * Takes an array of links, visits each and builds listingDetails 
 	 *  when all links have been visited, make call to processAddresses()
 	 */
+	var listingDetails = [];
+	var scrappingLoop = 0;
+	var listLength = 0;
 	function processLinks(links){
 		csLog("processLinks");
 
-		var listingDetails = [];
-		var listLength = links.length;
+		listingDetails = [];
 
+		console.log("**Links**");
 		console.log(links);
 
-		for(var i = 0; i < listLength; i++){
+		links.forEach(function(element, index, array){
+		//for(scrappingLoop = 0; scrappingLoop < listLength; scrappingLoop++){
 
-			console.log("Scrapping1: ",i);
-
-			var theIndex = i;
-			var theLink = links[i];
+			console.log("Scrapping1: ",index);
 
 			var $tempHtml = $('<div>');
-			$tempHtml.load(theLink + ' #attributeTable', function(response, status, xhr) {
-				
-				console.log("Scrapping2: ",theIndex);
-				console.log("Scrapping2: ",theLink);
+			$tempHtml.load(element + ' #attributeTable', function(response, status, xhr) {
+
+				console.log("Scrapping2: ",index);
+				console.log("Scrapping2: ",element);
 
 				if (status == "error") {
 					var msg = "Sorry but there was an error: ";
@@ -196,38 +201,44 @@
 					// remove the anchor
 					$("a", alterHtml).remove();
 					// we now have just the address, save in array
-					listingDetails.push([theLink, alterHtml.text()]);
-					//console.log(alterHtml.text());
-				}
 
-				//console.log(index);
-				if(i == listLength){
-					csLog("i == listLength");
-					processAddresses(listingDetails);
+				console.log("Scrapping2: ",alterHtml.text().trim());
+
+					listingDetails.push([element, alterHtml.text().trim()]);
+					//console.log(alterHtml.text());
+
+					verifyAndRunProcessAddresses(links);
 				}
 			});
+		});
+	}
+
+	function verifyAndRunProcessAddresses(links){
+		if(listingDetails.length == links.length){
+			processAddresses(listingDetails);
 		}
 	}
 
 	function processAddresses(listingLinksAddresses){
 		csLog("processAddresses");
-		//console.log(listingLinksAddresses);
+		console.log(listingLinksAddresses);
 		
 		var listingCoords = [];
 		var processedAddressCount = 0;
 		for(var i=0; i<listingLinksAddresses.length; i++){
 
-			processedAddressCount++;
+			
 
 			console.log("Geocoding",i);
 
 			//ex: http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true
 
-			csLog("listingLinksAddresses"+listingLinksAddresses);
-			csLog("listingLinksAddresses[1][i]"+listingLinksAddresses[1][i]);
+			//csLog("listingLinksAddresses"+listingLinksAddresses);
+			//csLog("listingLinksAddresses[1][i]"+listingLinksAddresses[1][i]);
 
-			var encoded_address = encodeURIComponent(listingLinksAddresses[1][i]);
+			var encoded_address = encodeURIComponent(listingLinksAddresses[i][1]);
 			var compiled_url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + encoded_address + "&sensor=false"
+			console.log(compiled_url);
 
 			$.getJSON( compiled_url, {
 				tagmode: "any",
@@ -235,9 +246,11 @@
 			})
 			.done(function( data ) {
 
-				console.log(processedAddressCount, listingAddresses.length);
+				console.log(processedAddressCount, listingLinksAddresses.length);
 
 				if(!data.results[0]) return;
+
+				console.log(data.results[0]);
 
 				var tempCoord = [data.results[0].geometry.location.lat, 
 								data.results[0].geometry.location.lng,
@@ -246,10 +259,9 @@
 				listingCoords.push(tempCoord);
 				console.log(tempCoord);
 
-				if(processedAddressCount == listingAddresses.length){
-					console.log("geocoords length",listingAddresses.length);
-					updateMap(listingCoords);
-				}
+				csLog("processedAddressCount:"+processedAddressCount);
+				csLog("listingLinksAddresses.length:"+listingLinksAddresses.length);
+				
 
 				//console.log(data.results[0].formatted_address);
 				//console.log("lat:",data.results[0].geometry.location.lat);
@@ -261,8 +273,19 @@
 						console.log(key, value);
 				    });
 				});*/
-			});
+			})
+			.error(function() {
 
+			})
+			.complete(function() { 
+
+				processedAddressCount++;
+
+				if(processedAddressCount == listingLinksAddresses.length){
+					console.log("geocoords length",listingLinksAddresses.length);
+					updateMap(listingCoords);
+				}
+			});
 		}
 
 
@@ -287,7 +310,7 @@
 
 	function injectMap(){
 		csLog("injectMap");
-		$('tr.resultsTableSB:first').before('<tr><td colspan="100%"><div id="map-canvas" style="width:'+$('#SNB_Results').width()+'px;height:400px;"></div></td></tr>');
+		$('tr.resultsTableSB:first').before('<tr id="map-canvas-row"><td colspan="100%"><div id="map-canvas" style="width:'+$('#SNB_Results').width()+'px;height:400px;"></div></td></tr>');
 	}
 
 	function initializeMap() {
@@ -311,9 +334,13 @@
 
 	function updateMap(listOfMarkers){
 		csLog("updateMap");
+		console.log("listOfMarkers.length:"+listOfMarkers.length);
+		console.log(listOfMarkers);
 		for(var i = 0; i < listOfMarkers.length; i++){
-			var marker = L.marker( [ element[0], element[1] ] )
-							.bindPopup(element[2] + '<p><a href="'+listingLinks[i]+'">View Listing</a>')
+			console.log("listOfMarkers:"+i);
+			console.log(listOfMarkers[i]);
+			var marker = L.marker( [ listOfMarkers[i][0], listOfMarkers[i][1] ] )
+							.bindPopup(listOfMarkers[i][2] + '<p><a href="'+listOfMarkers[i][2]+'">View Listing</a>')
 							.addTo(map);
 		}
 	}
